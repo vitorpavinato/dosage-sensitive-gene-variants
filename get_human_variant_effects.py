@@ -101,7 +101,7 @@ async def main() -> None:
 
     # Start streamlit
     st.write("""
-    # Human Dosage-Sensitive Genes Variant Effect
+    # Human Dosage-Sensitive Gene Variant Effects
     How many variants are there in human dosage-sensitive genes?
     """)
 

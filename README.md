@@ -20,7 +20,6 @@ You can check it out [here](https://dosage-sensitive-gene-variants-zhpeqttzzjjfl
 ### Installation:
 ```zsh
 # Clone the repository
-
 git clone https://github.com/vitorpavinato/dosage-sensitive-genes-variants.git
 
 # Install dependencies with poetry

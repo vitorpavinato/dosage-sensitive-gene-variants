@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "dosage-sensitive-genes-variants"
+name = "dosage-sensitive-gene-variants"
 version = "0.1.0"
 description = ""
 authors = ["Vitor Pavinato <vitorpavinato@users.noreply.github.com>"]
