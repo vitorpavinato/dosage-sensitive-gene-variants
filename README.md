@@ -2,6 +2,9 @@
 
 This project utilizes the Ensembl REST API to retrieve variant effects for a set of human dosage-sensitive genes. These genes are known to cause abnormal functioning and diseases when their gene product (RNA or protein) levels increase or decrease due to various genetic alterations, such as duplications, deletions, or gain/loss-of-function mutations.
 
+## Live demo
+You can check it out [here](https://dosage-sensitive-gene-variants-zhpeqttzzjjfljaxhrj5kt.streamlit.app/).
+
 ## Current Functionality
 
 - The list of genes to be queried is currently hard-coded in the main function.
@@ -16,15 +19,25 @@ This project utilizes the Ensembl REST API to retrieve variant effects for a set
 
 ### Installation:
 ```zsh
+# Clone the repository
+
 git clone https://github.com/vitorpavinato/dosage-sensitive-genes-variants.git
 
+# Install dependencies with poetry
 poetry install
 ```
 
 ### Usage:
 ```zsh
+# Activate the shell for the local virtual environment
+poetry shell
+
+# Run streamlit
 streamlit run get_human_variant_effects.py
 ```
+
+### Screenshot of the Streamlit App
+![Streamlit App Screenshot](img.png)
 
 ## Dependencies
 

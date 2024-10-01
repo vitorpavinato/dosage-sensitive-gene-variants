@@ -1,6 +1,5 @@
 """
-Get human variant effect for a list of genes from Ensembl REST API.
-The list of gene names corresponds to a sample of desage-sensitive genes.
+Get human variant effects for a list of genes from Ensembl REST API.
 """
 
 import asyncio
