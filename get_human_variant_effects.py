@@ -1,5 +1,6 @@
 """
 Get human variant effect for a list of genes from Ensembl REST API.
+The list of gene names corresponds to a sample of desage-sensitive genes.
 """
 
 import asyncio
@@ -14,6 +15,10 @@ from fetch_endpoint import JSONObject, fetch_endpoint
 
 # Function to get the gene id for a given human gene name:
 async def get_human_gene_id(gene_name: str, content_type: str) -> str:
+    """
+    Asynchronous version of a function that gets the 
+    gene id for a given human gene name.
+    """
     base_url = "https://rest.ensembl.org/"
     endpoint = f"lookup/symbol/homo_sapiens/{gene_name}?"
     gene = await fetch_endpoint(base_url, endpoint, content_type)
@@ -22,6 +27,10 @@ async def get_human_gene_id(gene_name: str, content_type: str) -> str:
 
 
 def count_functional_variants(variants: list[dict]) -> tuple[int, int, int]:
+    """
+    Count the number of intron, synonymous and missense variants
+    for a given list of variants.
+    """
     # Initialize the counters
     intron_count = 0
     synonymous_count = 0
@@ -40,6 +49,10 @@ def count_functional_variants(variants: list[dict]) -> tuple[int, int, int]:
 
 # Function to get the variants and effect for a given gene id:
 async def get_human_gene_variants(gene: str, content_type: str) -> str:
+    """
+    Asynchronous implementation of a function to access the variant effect
+    for a given gene id.
+    """
     base_url = "https://rest.ensembl.org/"
     endpoint = f"/overlap/id/{gene[1]}?feature=variation"
     variants = await fetch_endpoint(base_url, endpoint, content_type)
@@ -57,17 +70,20 @@ async def get_human_gene_variants(gene: str, content_type: str) -> str:
 
 
 async def main() -> None:
+    """
+    Simply implements the asynchronous calls and present the results.
+    """
 
-    # Multiple genes request
+    # Multiple gene requests
     content_type = "application/json"
-    # gene_names = ["ESPN"]
+
     gene_names = ["ESPN", "BRAF", "PRR29-AS1", "PRR29", "ICAM2", "BRCA2"]
 
-    # Apply the function with asyncio.gather for concurrent calls
+    # Get the gene id for gene names with asyncio.gather for concurrent calls
     geneids_async = await asyncio.gather(*[get_human_gene_id(gene, content_type) for gene in gene_names])
     print(f"{geneids_async} from asynchronous calls")
 
-    # From the gene ids, apply the function with asyncio.gather for concurrent calls
+    # Get the variant for a given gene id concurrently
     gene_variants = await asyncio.gather(*[get_human_gene_variants(gene, content_type) for gene in geneids_async])
     print(gene_variants)
 
@@ -84,16 +100,13 @@ async def main() -> None:
             "missense_to_intron"
             ])
 
-    # Plot the results
-    # df.plot(x="gene_name", y=["intron_count", "synonymous_count", "missense_count"], kind="barh")
-    # plt.show()
-
+    # Start streamlit
     st.write("""
-    # Human Variant Effect
-    How many variants are there in dosage-sensitivet human genes?
+    # Human Dosage-Sensitive Genes Variant Effect
+    How many variants are there in human dosage-sensitive genes?
     """)
 
-    # Barplot of the results
+    # Barplot of the results for a nicer presentation
     fig, ax = plt.subplots()
     ax.barh(df["gene_name"], df["intron_count"], label="intron")
     ax.barh(df["gene_name"], df["synonymous_count"], left=df["intron_count"], label="synonymous")
